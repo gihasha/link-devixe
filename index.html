@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Device Link Prank | Dasun Max</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: #fff;
+    }
+    .container {
+      background: linear-gradient(145deg, #6a11cb, #2575fc);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      width: 90%;
+      max-width: 400px;
+    }
+    h1 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #ffde59;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      color: #ffffff;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      margin-top: 5px;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      background: #00c9a7;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #00b08a;
+    }
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Device Link Message Sender</h1>
+    <form id="prankForm">
+      <label for="phone">Enter Phone Number:</label>
+      <input type="text" id="phone" placeholder="Eg: +947XXXXXXXX" required />
+
+      <label for="amount">Enter Value (Rs):</label>
+      <input type="number" id="amount" placeholder="Eg: 150.00" required />
+
+      <button type="submit">Send Message</button>
+    </form>
+    <div class="footer">Created by Dasun Max</div>
+  </div>
+
+  <script>
+    const form = document.getElementById('prankForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const phone = document.getElementById('phone').value;
+      const amount = document.getElementById('amount').value;
+
+      const message = `Your WhatsApp account has been linked to a new device.\nDevice ID: 0xDF39AF...\nAmount Processed: Rs. ${amount}`;
+
+      await fetch('http://localhost:5000/send-message', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ number: phone, message }),
+      });
+
+      alert('Device Link Message Sent (Prank)!');
+      form.reset();
+    });
+  </script>
+</body>
+</html>
